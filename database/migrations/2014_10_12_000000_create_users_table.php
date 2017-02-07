@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('fax');
             $table->string('mobileNumber');
             $table->string('email')->unique();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

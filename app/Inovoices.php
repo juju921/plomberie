@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inovoices extends Model
 {
-    //
+     public function user()
+    {
+        return $this->hasMany('App/User');
+    }
+
 }
