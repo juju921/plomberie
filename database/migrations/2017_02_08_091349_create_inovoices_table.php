@@ -23,8 +23,10 @@ class CreateInovoicesTable extends Migration
             $table->decimal('sub_total');
             $table->decimal('discount');
             $table->decimal('grand_total');
+            $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();
         });
+
     }
 
     /**
@@ -34,6 +36,6 @@ class CreateInovoicesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('invoices');
     }
 }
