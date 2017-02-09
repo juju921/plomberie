@@ -14,7 +14,14 @@ require('./bootstrap');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('modal', require('./components/modal.vue'));
+
+
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+        showModal: false
+    }
+
 });

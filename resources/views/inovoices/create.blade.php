@@ -1,7 +1,7 @@
 
-@section('content')
-<div class="app-container">
+@extends('layouts.master')
 
+@section('content')
     <nav class="navbar navbar-default" id="navbar">
         <div class="container-fluid">
             <div class="navbar-collapse collapse in">
@@ -176,102 +176,143 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                Ajouter un client
+                Basic Elements
             </div>
-            <div class="card-body">
-                <form method="POST" action="/users">
-                    {{ csrf_field() }}
-                    <div class="row">
-                        <div class="col-md-6">
 
-                            <label for="nBatiment">n° du batiment</label>
-                            <input type="text" class="form-control" placeholder="n° du batiment" id="nBatiment"
-                                   name="nBatiment">
-
-                            <label for="firstName">prénom</label>
-                            <input type="text" class="form-control" placeholder="prénom" id="firstName"
-                                   name="firstName">
-
-
-                            <label for="name">nom</label>
-                            <input type="text" class="form-control" placeholder="nom" id="name" name="name">
-
-
-                            <label for="adress">n° du batiment</label>
-                            <input type="text" class="form-control" placeholder="adresse" id="adress" name="adress">
-
-
-                            <label for="inovoiceAdress">Adresse de facturation</label>
-                            <input type="text" class="form-control" placeholder="Adresse de facturation"
-                                   id="inovoiceAdress" name="inovoiceAdress">
-
+            <form method="POST" action="/inovoices">
+            {{ csrf_field() }}
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Invoice No.</label>
+                            <input type="text" class="form-control" v-model="form.invoice_no">
+                        </div>
+                        <div class="form-group">
+                            <label>Client</label>
+                            <input type="text" class="form-control" v-model="form.client">
 
                         </div>
-                        <div class="col-md-6">
-
-                            <label for="habitation">type de logement</label>
-
-                            <select class="form-control" id="habitation" name="habitation">
-                                <option value="Maison">Maison</option>
-                                <option value="Appartement">Appartement</option>
-                            </select>
-
-                            <label for="accesCode">code d'accès</label>
-                            <input type="text" class="form-control" placeholder="code d'accès" id="accesCode"
-                                   name="accesCode">
-
-
-                            <label for="accesCode2">code d'accès n°2</label>
-                            <input type="text" class="form-control" placeholder="code d'accès n°2" id="accesCode2"
-                                   name="accesCode2">
-
-                            <label for="phoneNumber">numéro de téléphone</label>
-                            <input type="text" class="form-control" placeholder="numéro de téléphone" id="phoneNumber"
-                                   name="phoneNumber">
-
-
-                            <label for="fax">fax</label>
-                            <input type="text" class="form-control" placeholder="fax" id="fax" name="fax">
-
-
-                            <label for="mobileNumber">numéro de portable</label>
-                            <input type="text" class="form-control" placeholder="numéro de portable" id="mobileNumber"
-                                   name="mobileNumber">
-
-                            <label for="email">email</label>
-                            <input type="text" class="form-control" placeholder="email" id="email" name="email">
-
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Client Address</label>
+                            <textarea class="form-control" v-model="form.client_address"></textarea>
                         </div>
-                        <div class="form-footer">
-                            <div class="form-group">
-                                <div class="col-md-9 col-md-offset-3">
-                                    <button type="submit" class="btn btn-primary">ajouter</button>
-                                </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="form-control" v-model="form.title">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Invoice Date</label>
+                                <input type="date" class="form-control" v-model="form.invoice_date">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Due Date</label>
+                                <input type="date" class="form-control" v-model="form.due_date">
+
                             </div>
                         </div>
-
                     </div>
-                    @if(Session::has('error'))
-                        <div class="alert alert-danger">
+                </div>
+                <hr>
+                {{--<div v-if="errors.products_empty">--}}
+                    {{--<p class="alert alert-danger">@{{errors.products_empty[0]}}</p>--}}
+                    {{--<hr>--}}
+                {{--</div>--}}
+                <table class="table table-bordered table-form">
+                    <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="product in form.products">
+                        <td class="table-name" :class="{'table-error': errors['products.' + $index + '.name']}">
+                            <textarea class="table-control" v-model="product.name"></textarea>
+                        </td>
+                        <td class="table-price" :class="{'table-error': errors['products.' + $index + '.price']}">
+                            <input type="text" class="table-control"  v-model="product.price">
+                        </td>
+                        <td class="table-qty" :class="{'table-error': errors['products.' + $index + '.qty']}">
+                            <input type="text" class="table-control" v-model="product.qty">
+                        </td>
+                        <td class="table-total">
+                            <span class="table-text"></span>
+                        </td>
+                        <td class="table-remove">
+                            <span @click="remove(product)" class="table-remove-btn">&times;</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td class="table-empty" colspan="2">
+                            <span @click="addLine" class="table-add_line">Add Line</span>
+                        </td>
+                        <td class="table-label">Sub Total</td>
+                        <td class="table-amount"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-empty" colspan="2"></td>
+                        <td class="table-label">Discount</td>
+                        <td class="table-discount" :class="{'table-error': errors.discount}">
+                            <input type="text" class="table-discount_input" v-model="form.discount">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-empty" colspan="2"></td>
+                        <td class="table-label">Grand Total</td>
+                        <td class="table-amount"></td>
+                    </tr>
+                    </tfoot>
+                </table>
 
-                        </div>
-                    @endif
 
 
+            </form>
 
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                </form>
-
-            </div>
 
         </div>
 
+
+
+
+        <button id="show-modal" @click="showModal = true">Show Modal</button>
+        <!-- use the modal component, pass in the prop -->
+        <modal v-if="showModal" @close="showModal = false">
+        <!--
+          you can use custom content here to overwrite
+          default content
+        -->
+        <h3 slot="header">custom header</h3>
+        </modal>
+
+
+
+
+
+
 @endsection
+
+@push('scripts')
+
+
+<script  src="{{asset('js/vendor.js')}}" ></script>
+<script  src="{{asset('js/apps.js')}}" ></script>
+
+<script src="{{asset('js/vue.js')}}"></script>
+<script src="{{asset('js/app.js')}}"></script>
+        <script>
+
+
+
+
+        </script>
+
+@endpush
