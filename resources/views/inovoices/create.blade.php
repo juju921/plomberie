@@ -273,25 +273,70 @@
                     </tfoot>
                 </table>
 
+                		<div class="form-group">
+						<label for="title">Title:</label>
+						<input type="text" name="title" class="form-control" v-model="newItem.invoice_no" />
+						<span v-if="formErrors['invoice_no']" class="error text-danger">@{{ formErrors['invoice_no'] }}</span>
+					</div>
+
+					<div class="form-group">
+						<label for="title">Description:</label>
+						<textarea name="description" class="form-control" v-model="newItem.title"></textarea>
+						<span v-if="formErrors['title']" class="error text-danger">@{{ formErrors['title'] }}</span>
+					</div>
+
+
 
 
             </form>
 
 
         </div>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#create-item">
+				  Create Item
+				</button>
+
+        <div id="manage-vue">
+ <!-- Create Item Modal -->
+		<div class="modal fade" id="create-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Create Item</h4>
+		      </div>
+		      <div class="modal-body">
+
+		      		<form method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem" >
+
+		      			<div class="form-group">
+						<label for="title">Title:</label>
+						<input type="text" name="title" class="form-control" v-model="newItem.invoice_no" />
+						<span v-if="formErrors['invoice_no']" class="error text-danger">@{{ formErrors['invoice_no'] }}</span>
+					</div>
+
+					<div class="form-group">
+						<label for="title">Description:</label>
+						<textarea name="description" class="form-control" v-model="newItem.title"></textarea>
+						<span v-if="formErrors['title']" class="error text-danger">@{{ formErrors['title'] }}</span>
+					</div>
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-success">Submit</button>
+					</div>
+
+		      		</form>
+
+		        
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<!-- Edit Item Modal -->
 
 
-
-
-        <button id="show-modal" @click="showModal = true">Show Modal</button>
-        <!-- use the modal component, pass in the prop -->
-        <modal v-if="showModal" @close="showModal = false">
-        <!--
-          you can use custom content here to overwrite
-          default content
-        -->
-        <h3 slot="header">custom header</h3>
-        </modal>
+        </div>
 
 
 
@@ -307,7 +352,49 @@
 <script  src="{{asset('js/apps.js')}}" ></script>
 
 <script src="{{asset('js/vue.js')}}"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/vue.resource/0.9.3/vue-resource.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+
 <script src="{{asset('js/app.js')}}"></script>
+<script>
+Vue.http.headers.common['X-CSRF-TOKEN'] = $("#token").attr("value");
+new Vue({
+
+  el: '#manage-vue',
+
+  data: {
+    items: [],
+    formErrors:{},
+    formErrorsUpdate:{},
+    newItem : {'invoice_no':'','title':''},
+    fillItem : {'invoice_no':'','title':'','id':''}
+  },
+
+
+
+  methods : {
+
+    
+
+        createItem: function(){
+		  var input = this.newItem;
+		  this.$http.post('/inovoices',input).then((response) => {
+			this.newItem = {'invoice_no':'','title':''};
+			$("#create-item").modal('hide');
+			toastr.success('Item Created Successfully.', 'Success Alert', {timeOut: 5000});
+		  }, (response) => {
+			this.formErrors = response.data;
+	    });
+	},
+
+
+  }
+
+});
+
+
+</script>
         <script>
 
 
