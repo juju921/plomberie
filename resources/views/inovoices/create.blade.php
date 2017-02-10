@@ -173,7 +173,7 @@
     </nav>
 
 
-    <div class="col-md-12">
+    <div class="col-md-12" id="manage-vue">
         <div class="card">
             <div class="card-header">
                 Basic Elements
@@ -181,225 +181,154 @@
 
             <form method="POST" action="/inovoices">
             {{ csrf_field() }}
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label>Invoice No.</label>
-                            <input type="text" class="form-control" v-model="form.invoice_no">
-                        </div>
-                        <div class="form-group">
-                            <label>Client</label>
-                            <input type="text" class="form-control" v-model="form.client">
 
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label>Client Address</label>
-                            <textarea class="form-control" v-model="form.client_address"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label>Title</label>
-                            <input type="text" class="form-control" v-model="form.title">
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Invoice Date</label>
-                                <input type="date" class="form-control" v-model="form.invoice_date">
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Due Date</label>
-                                <input type="date" class="form-control" v-model="form.due_date">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                {{--<div v-if="errors.products_empty">--}}
-                    {{--<p class="alert alert-danger">@{{errors.products_empty[0]}}</p>--}}
-                    {{--<hr>--}}
-                {{--</div>--}}
-                <table class="table table-bordered table-form">
-                    <thead>
-                    <tr>
-                        <th>Product Name</th>
-                        <th>Price</th>
-                        <th>Qty</th>
-                        <th>Total</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="product in form.products">
-                        <td class="table-name" :class="{'table-error': errors['products.' + $index + '.name']}">
-                            <textarea class="table-control" v-model="product.name"></textarea>
-                        </td>
-                        <td class="table-price" :class="{'table-error': errors['products.' + $index + '.price']}">
-                            <input type="text" class="table-control"  v-model="product.price">
-                        </td>
-                        <td class="table-qty" :class="{'table-error': errors['products.' + $index + '.qty']}">
-                            <input type="text" class="table-control" v-model="product.qty">
-                        </td>
-                        <td class="table-total">
-                            <span class="table-text"></span>
-                        </td>
-                        <td class="table-remove">
-                            <span @click="remove(product)" class="table-remove-btn">&times;</span>
-                        </td>
-                    </tr>
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <td class="table-empty" colspan="2">
-                            <span @click="addLine" class="table-add_line">Add Line</span>
-                        </td>
-                        <td class="table-label">Sub Total</td>
-                        <td class="table-amount"></td>
-                    </tr>
-                    <tr>
-                        <td class="table-empty" colspan="2"></td>
-                        <td class="table-label">Discount</td>
-                        <td class="table-discount" :class="{'table-error': errors.discount}">
-                            <input type="text" class="table-discount_input" v-model="form.discount">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="table-empty" colspan="2"></td>
-                        <td class="table-label">Grand Total</td>
-                        <td class="table-amount"></td>
-                    </tr>
-                    </tfoot>
-                </table>
-
-                		<div class="form-group">
-						<label for="title">Title:</label>
-						<input type="text" name="title" class="form-control" v-model="newItem.invoice_no" />
-						<span v-if="formErrors['invoice_no']" class="error text-danger">@{{ formErrors['invoice_no'] }}</span>
-					</div>
-
-					<div class="form-group">
-						<label for="title">Description:</label>
-						<textarea name="description" class="form-control" v-model="newItem.title"></textarea>
-						<span v-if="formErrors['title']" class="error text-danger">@{{ formErrors['title'] }}</span>
-					</div>
-
-
+                <notification></notification>
 
 
             </form>
 
+        </div>
+
+
+
+        <div class="container">
+            <div class="well well-sm">
+                <div class="form-group">
+                    <div class="input-group input-group-md">
+                        <div class="icon-addon addon-md">
+                            <input type="text" placeholder="What are you looking for?" class="form-control" v-model="query" >
+                        </div>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"  v-on:click="search()" v-if="!loading">Search!</button>
+                            <button class="btn btn-default" type="button" disabled="disabled" v-if="loading">Searching...</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-danger" role="alert" v-if="error">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                @{{ error }}
+            </div>
+            <div id="products" class="row list-group">
+                <div class="item col-xs-4 col-lg-4" v-for="user in users">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <h4 class="group inner list-group-item-heading">@{{ user.name }}</h4>
+                            <p class="group inner list-group-item-text">@{{ user.email }}</p>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <p class="lead">$@{{ user.adress }}</p>
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <a class="btn btn-success" href="#">Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
         </div>
+
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#create-item">
-				  Create Item
-				</button>
+            Create Item
+        </button>
 
-        <div id="manage-vue">
- <!-- Create Item Modal -->
-		<div class="modal fade" id="create-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-		        <h4 class="modal-title" id="myModalLabel">Create Item</h4>
-		      </div>
-		      <div class="modal-body">
+        <div id="manage-itelm">
+            <!-- Create Item Modal -->
+            <div class="modal fade" id="create-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Create Item</h4>
+                        </div>
+                        <div class="modal-body">
 
-		      		<form method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem" >
 
-		      			<div class="form-group">
-						<label for="title">Title:</label>
-						<input type="text" name="title" class="form-control" v-model="newItem.invoice_no" />
-						<span v-if="formErrors['invoice_no']" class="error text-danger">@{{ formErrors['invoice_no'] }}</span>
-					</div>
+                            <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem" >
 
-					<div class="form-group">
-						<label for="title">Description:</label>
-						<textarea name="description" class="form-control" v-model="newItem.title"></textarea>
-						<span v-if="formErrors['title']" class="error text-danger">@{{ formErrors['title'] }}</span>
-					</div>
+                              {{--  <div class="form-group">
+                                    <label for="title">Title:</label>
+                                    <input type="text" name="title" class="form-control"  />
+                                </div>
 
-					<div class="form-group">
-						<button type="submit" class="btn btn-success">Submit</button>
-					</div>
+                                <div class="form-group">
+                                    <label for="title">Description:</label>
+                                    <textarea name="description" class="form-control" ></textarea>
+                                </div>
 
-		      		</form>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>--}}
 
-		        
-		      </div>
-		    </div>
-		  </div>
-		</div>
+                            </form>
 
-		<!-- Edit Item Modal -->
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Edit Item Modal -->
+
+
+
+
 
 
         </div>
 
 
 
-
-
-
-@endsection
+        @endsection
 
 @push('scripts')
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
 <script  src="{{asset('js/vendor.js')}}" ></script>
 <script  src="{{asset('js/apps.js')}}" ></script>
-
-<script src="{{asset('js/vue.js')}}"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/vue.resource/0.9.3/vue-resource.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/vue.resource/1.2.0/vue-resource.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
 <script src="{{asset('js/app.js')}}"></script>
+
 <script>
-Vue.http.headers.common['X-CSRF-TOKEN'] = $("#token").attr("value");
-new Vue({
-
-  el: '#manage-vue',
-
-  data: {
-    items: [],
-    formErrors:{},
-    formErrorsUpdate:{},
-    newItem : {'invoice_no':'','title':''},
-    fillItem : {'invoice_no':'','title':'','id':''}
-  },
 
 
 
-  methods : {
 
-    
+    /* new Vue({
+     el: '#manage-vue',
+     data: {
+         items: [],
+         formErrors:{},
+         formErrorsUpdate:{},
+         newItem : {'invoice_no':'','title':''},
+         fillItem : {'invoice_no':'','title':'','id':''},
 
-        createItem: function(){
-		  var input = this.newItem;
-		  this.$http.post('/inovoices',input).then((response) => {
-			this.newItem = {'invoice_no':'','title':''};
-			$("#create-item").modal('hide');
-			toastr.success('Item Created Successfully.', 'Success Alert', {timeOut: 5000});
-		  }, (response) => {
-			this.formErrors = response.data;
-	    });
-	},
+     },
+     methods : {
+
+         createItem: function(){
+             var input = this.newItem;
+             this.$http.post('/inovoices',input).then((response) => {
+                 this.newItem = {'invoice_no':'','title':''};
+             $("#create-item").modal('hide');
+             toastr.success('Item Created Successfully.', 'Success Alert', {timeOut: 5000});
+         }, (response) => {
+                 this.formErrors = response.data;
+             });
+         },
 
 
-  }
-
-});
-
-
+     }
+ });*/
 </script>
-        <script>
-
-
-
-
-        </script>
 
 @endpush

@@ -5,9 +5,12 @@ namespace App;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Inovoices extends Model
 {
+    use Searchable;
+
 
     protected $fillable = [
         'invoice_no', 'invoice_date', 'due_date',

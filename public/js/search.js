@@ -1,12 +1,6 @@
-import Vue from 'vue';
-Vue.use(require('vue-resource'));
-import Notification from './components/Notification.vue';
+new Vue({
 
-
-const app = new Vue({
-    el: '#manage-vue',
-
-    components:{ Notification },
+    el: 'body',
 
     data: {
         users: [],
@@ -24,7 +18,6 @@ const app = new Vue({
             // Set the loading property to true, this will display the "Searching..." button.
             this.loading = true;
 
-
             // Making a get request to our API and passing the query to it.
             this.$http.get('/api/search?q=' + this.query).then((response) => {
                 // If there was an error set the error message, if not fill the products array.
@@ -33,9 +26,9 @@ const app = new Vue({
             this.loading = false;
             // Clear the query.
             this.query = '';
+
         });
         }
     }
 
-
-    });
+});

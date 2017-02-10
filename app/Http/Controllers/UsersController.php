@@ -39,6 +39,7 @@ class UsersController extends Controller
     {
         //1. Validate the data
 
+
         $this->validate($request, [
             'nBatiment' => 'required|integer',
             'firstName' => 'required|string|max:255',
