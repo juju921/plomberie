@@ -215,6 +215,7 @@
 
 
                         <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem">
+
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <div class="col-md-12">

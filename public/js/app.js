@@ -8759,7 +8759,7 @@ var appli = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         loading: false,
         error: false,
         query: '',
-        newItem: { 'name': '', 'firstName': '' }
+        user: { 'name': '', 'firstName': '' }
     },
 
     methods: {
@@ -8787,13 +8787,14 @@ var appli = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         createItem: function createItem() {
             var _this3 = this;
 
-            var hidden = this.newItem;
-            this.$http.post('/inovoices/create', hidden).then(function (response) {
-                _this3.newItem = { 'name': '', 'firstName': '' };
+            var input = this.user;
+            this.$http.post('/users', input).then(function (response) {
+                _this3.user = { 'name': '', 'firstName': '' };
                 $("#create-item").modal('hide');
                 toastr.success('Item Created Successfully.', 'Success Alert', { timeOut: 5000 });
             }, function (response) {
                 _this3.formErrors = response.data;
+                console.log(user.name);
             });
         }
 

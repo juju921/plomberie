@@ -59,7 +59,7 @@ const appli = new Vue({
         loading: false,
         error: false,
         query: '',
-       newItem : {'name':'','firstName':''}
+        user : {'name':'','firstName':''}
     },
 
     methods: {
@@ -84,13 +84,14 @@ const appli = new Vue({
     },
     
     createItem: function(){
-		  var hidden = this.newItem;
-		  this.$http.post('/inovoices/create',hidden).then((response) => {
-			this.newItem = {'name':'','firstName':''};
+		  var input = this.user;
+		  this.$http.post('/users',input).then((response) => {
+			this.user = {'name':'','firstName':''};
 			$("#create-item").modal('hide');
 			toastr.success('Item Created Successfully.', 'Success Alert', {timeOut: 5000});
 		  }, (response) => {
 			this.formErrors = response.data;
+            console.log(user.name);
 	    });
 	},
 

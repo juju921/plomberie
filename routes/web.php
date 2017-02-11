@@ -29,6 +29,7 @@ Route::resource('/inovoices/create','InovoicesController@create');
 //User
 Route::get('/users/create','UsersController@create');
 Route::post('/users','UsersController@store');
+Route::resource('users','UsersController');
 
 
 //Api
