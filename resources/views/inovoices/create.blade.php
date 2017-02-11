@@ -1,4 +1,3 @@
-
 @extends('layouts.master')
 
 @section('content')
@@ -180,137 +179,161 @@
             </div>
 
             <form method="POST" action="/inovoices">
-            {{ csrf_field() }}
+                {{ csrf_field() }}
 
                 <notification></notification>
 
                 <div v-for="user in users">
-                                @{{ user.name }}
+                    @{{ user.name }}
 
-                    @{{ user.firstName }} 
-                      </div>
-  
+                    @{{ user.firstName }}
+                </div>
+
 
             </form>
 
         </div>
 
 
+    </div>
 
-       
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#create-item">
+        ajouter un client
+    </button>
 
-        </div>
-
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#create-item">
-            Create Item
-        </button>
-
-        <div id="manage-itelm">
-            <!-- Create Item Modal -->
-            <div class="modal fade" id="create-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Create Item</h4>
-                        </div>
-                        <div class="modal-body" style="overflow:hidden;">
+    <div id="manage-itelm">
+        <!-- Create Item Modal -->
+        <div class="modal fade" id="create-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Create Item</h4>
+                    </div>
+                    <div class="modal-body" style="overflow:hidden;">
 
 
-                            <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem" >
+                        <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem">
 
-<div class="form-group">
- <div class="col-md-12">
-            <div class="well well-sm">
-                <div class="form-group">
-                    <div class="input-group input-group-md">
-                        <div class="icon-addon addon-md">
-                            <input type="text" placeholder="What are you looking for?" class="form-control" v-model="query" >
-    
-                        </div>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"  v-on:click="search()" v-if="!loading">Search!</button>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="well well-sm">
+                                        <div class="form-group">
+                                            <div class="input-group input-group-md">
+                                                <div class="icon-addon addon-md">
+                                                    <input type="text" placeholder="What are you looking for?"
+                                                           class="form-control" v-model="query">
+
+                                                </div>
+                                                <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" v-on:click="search()"
+                                    v-if="!loading">Search!</button>
                             <button class="btn btn-default" type="button" disabled="disabled" v-if="loading">Searching...</button>
                         </span>
-                    </div>
-                </div>
-            </div>
-            <div class="alert alert-danger" role="alert" v-if="error">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                @{{ error }}
-            </div>
-            <div id="products" class="row list-group">
-                <div class="item col-md-12" v-for="user in users">
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <h4 class="group inner list-group-item-heading"  >@{{ user.name }}</h4>
-                              <input type="hidden" name="country"  v-model="user.name" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-danger" role="alert" v-if="error">
+                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                        @{{ error }}
+                                    </div>
+                                    <div id="products" class="row list-group" v-for="user in users">
+                                        <div class="row">
+                                            <div class="col-xs-12 ">
+                                                <div class="well well-sm">
+                                                    <div class="row">
 
-                            <p class="group inner list-group-item-text" >@{{ user.firstName }}</p>
-                        <input type="hidden" name="country"  v-model="user.firstName" >
+                                                        <div class="col-xs-12">
+                                                            <h4>
+                                                                @{{ user.name }} @{{ user.firstName }}</h4>
+                                                            <small><cite title="San Francisco, USA"> @{{ user.adress }} <i class="glyphicon glyphicon-map-marker">
+                                                                    </i></cite></small>
+                                                            <p>
+                                                                <i class="glyphicon glyphicon-envelope"></i> @{{ user.email }}
+                                                                <br />
 
-                                <div class="col-xs-12 col-md-6">
-                                    <button type="submit" class="btn btn-success">ajouter</button>
+                                                            <!-- Split button -->
+                                                            <div class="btn-group">
+                                                                <button type="button" class="btn btn-primary">
+                                                                    Social</button>
+                                                                <div class="form-group">
+                                                                    <button type="submit" class="btn btn-success">ajouter</button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item col-md-12" v-for="user in users">
+                                            <div class="thumbnail">
+                                                <div class="caption">
+                                                    <div class="form-group">
+                                                        <h4 class="group inner list-group-item-heading">@{{ user.name }}</h4>
+                                                        <input type="hidden" name="country" v-model="user.name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p class="group inner list-group-item-text">@{{ user.firstName }}</p>
+                                                        <input type="hidden" name="country" v-model="user.firstName">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-success">ajouter</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
+
+
+                    {{--  <div class="form-group">
+                          <label for="title">Title:</label>
+                          <input type="text" name="title" class="form-control"  />
+                      </div>
+
+                      <div class="form-group">
+                          <label for="title">Description:</label>
+                          <textarea name="description" class="form-control" ></textarea>
+                      </div>
+
+                      <div class="form-group">
+                          <button type="submit" class="btn btn-success">Submit</button>
+                      </div>--}}
+
+                    </form>
+
+
                 </div>
             </div>
         </div>
-        </div>
+
+    </div>
+    <!-- Edit Item Modal -->
 
 
 
 
 
 
+    </div>
 
 
 
-
-                              {{--  <div class="form-group">
-                                    <label for="title">Title:</label>
-                                    <input type="text" name="title" class="form-control"  />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="title">Description:</label>
-                                    <textarea name="description" class="form-control" ></textarea>
-                                </div>
-
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-success">Submit</button>
-                                </div>--}}
-
-                            </form>
-
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- Edit Item Modal -->
-
-
-
-
-
-
-        </div>
-
-
-
-        @endsection
+@endsection
 
 @push('scripts')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
-<script  src="{{asset('js/vendor.js')}}" ></script>
-<script  src="{{asset('js/apps.js')}}" ></script>
- <script src="https://cdn.jsdelivr.net/vue.resource/1.2.0/vue-resource.min.js"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+<script src="{{asset('js/vendor.js')}}"></script>
+<script src="{{asset('js/apps.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/vue.resource/1.2.0/vue-resource.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 

@@ -58,7 +58,7 @@ const appli = new Vue({
         loading: false,
         error: false,
         query: '',
-        newItem : {'name':'','firstName':''}
+       newItem : {'name':'','firstName':''}
     },
 
     methods: {
@@ -83,8 +83,8 @@ const appli = new Vue({
     },
     
     createItem: function(){
-		  var input = this.newItem;
-		  this.$http.post('/inovoices/create',input).then((response) => {
+		  var hidden = this.newItem;
+		  this.$http.post('/inovoices/create',hidden).then((response) => {
 			this.newItem = {'name':'','firstName':''};
 			$("#create-item").modal('hide');
 			toastr.success('Item Created Successfully.', 'Success Alert', {timeOut: 5000});

@@ -8787,8 +8787,8 @@ var appli = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         createItem: function createItem() {
             var _this3 = this;
 
-            var input = this.newItem;
-            this.$http.post('/inovoices/create', input).then(function (response) {
+            var hidden = this.newItem;
+            this.$http.post('/inovoices/create', hidden).then(function (response) {
                 _this3.newItem = { 'name': '', 'firstName': '' };
                 $("#create-item").modal('hide');
                 toastr.success('Item Created Successfully.', 'Success Alert', { timeOut: 5000 });

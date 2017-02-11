@@ -19,10 +19,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-//Facture
+//Inovoices
 Route::get('/inovoices/create','InovoicesController@create');
 Route::post('/inovoices','InovoicesController@store');
-Route::get('/','Api\SearchController@search');
+
 //User
 Route::get('/users/create','UsersController@create');
 Route::post('/users','UsersController@store');
+
+
+//Api
+Route::get('/','Api\SearchController@search');
