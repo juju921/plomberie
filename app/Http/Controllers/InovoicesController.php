@@ -8,6 +8,13 @@ use App\User;
 
 class InovoicesController extends Controller
 {
+
+    public function manageinovoices(){
+
+           return view('manage-inovoices');
+
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -20,8 +20,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 //Inovoices
-Route::get('/inovoices/create','InovoicesController@create');
-Route::post('/inovoices','InovoicesController@store');
+Route::get('manage-inovoices', 'InovoicesController@manageinovoices');
+Route::resource('inovoices', 'InovoicesController');
+
+Route::resource('/inovoices/create','InovoicesController@create');
+
 
 //User
 Route::get('/users/create','UsersController@create');

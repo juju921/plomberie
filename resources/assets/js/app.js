@@ -49,6 +49,7 @@ const app = new Vue({
 
 const appli = new Vue({
 
+
    el: '#create-item',
 
 
