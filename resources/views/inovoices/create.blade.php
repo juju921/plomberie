@@ -184,6 +184,12 @@
 
                 <notification></notification>
 
+                <div v-for="user in users">
+                                @{{ user.name }}
+
+                    @{{ user.firstName }} 
+                      </div>
+  
 
             </form>
 
@@ -191,45 +197,7 @@
 
 
 
-        <div class="container">
-            <div class="well well-sm">
-                <div class="form-group">
-                    <div class="input-group input-group-md">
-                        <div class="icon-addon addon-md">
-                            <input type="text" placeholder="What are you looking for?" class="form-control" v-model="query" >
-                        </div>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"  v-on:click="search()" v-if="!loading">Search!</button>
-                            <button class="btn btn-default" type="button" disabled="disabled" v-if="loading">Searching...</button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="alert alert-danger" role="alert" v-if="error">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                @{{ error }}
-            </div>
-            <div id="products" class="row list-group">
-                <div class="item col-xs-4 col-lg-4" v-for="user in users">
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <h4 class="group inner list-group-item-heading">@{{ user.name }}</h4>
-                            <p class="group inner list-group-item-text">@{{ user.email }}</p>
-                            <div class="row">
-                                <div class="col-xs-12 col-md-6">
-                                    <p class="lead">$@{{ user.adress }}</p>
-                                </div>
-                                <div class="col-xs-12 col-md-6">
-                                    <a class="btn btn-success" href="#">Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+       
 
         </div>
 
@@ -246,10 +214,60 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                             <h4 class="modal-title" id="myModalLabel">Create Item</h4>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" style="overflow:hidden;">
 
 
                             <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem" >
+
+<div class="form-group">
+ <div class="col-md-12">
+            <div class="well well-sm">
+                <div class="form-group">
+                    <div class="input-group input-group-md">
+                        <div class="icon-addon addon-md">
+                            <input type="text" placeholder="What are you looking for?" class="form-control" v-model="query" >
+    
+                        </div>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"  v-on:click="search()" v-if="!loading">Search!</button>
+                            <button class="btn btn-default" type="button" disabled="disabled" v-if="loading">Searching...</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-danger" role="alert" v-if="error">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                @{{ error }}
+            </div>
+            <div id="products" class="row list-group">
+                <div class="item col-md-12" v-for="user in users">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <h4 class="group inner list-group-item-heading"  >@{{ user.name }}</h4>
+                              <input type="hidden" name="country"  v-model="user.name" >
+
+                            <p class="group inner list-group-item-text" >@{{ user.firstName }}</p>
+                        <input type="hidden" name="country"  v-model="user.firstName" >
+
+                                <div class="col-xs-12 col-md-6">
+                                    <button type="submit" class="btn btn-success">ajouter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+
+
+
+
+
+
+
 
                               {{--  <div class="form-group">
                                     <label for="title">Title:</label>
@@ -298,37 +316,5 @@
 
 <script src="{{asset('js/app.js')}}"></script>
 
-<script>
-
-
-
-
-    /* new Vue({
-     el: '#manage-vue',
-     data: {
-         items: [],
-         formErrors:{},
-         formErrorsUpdate:{},
-         newItem : {'invoice_no':'','title':''},
-         fillItem : {'invoice_no':'','title':'','id':''},
-
-     },
-     methods : {
-
-         createItem: function(){
-             var input = this.newItem;
-             this.$http.post('/inovoices',input).then((response) => {
-                 this.newItem = {'invoice_no':'','title':''};
-             $("#create-item").modal('hide');
-             toastr.success('Item Created Successfully.', 'Success Alert', {timeOut: 5000});
-         }, (response) => {
-                 this.formErrors = response.data;
-             });
-         },
-
-
-     }
- });*/
-</script>
 
 @endpush
