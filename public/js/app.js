@@ -8707,8 +8707,6 @@ module.exports = Vue$3;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Notification_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Notification_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Autocomplete_vue__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Autocomplete_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Autocomplete_vue__);
-var _ref;
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -8717,38 +8715,12 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__webpack_require__(12));
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.http.headers.common['X-CSRF-TOKEN'] = $("#token").attr("value");
 
-var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a((_ref = {
+var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a(_defineProperty({
 
     el: '#manage-vue',
 
     components: { Notification: __WEBPACK_IMPORTED_MODULE_1__components_Notification_vue___default.a }
-}, _defineProperty(_ref, 'components', { Autocomplete: __WEBPACK_IMPORTED_MODULE_2__components_Autocomplete_vue___default.a }), _defineProperty(_ref, 'data', {
-    users: [],
-    loading: false,
-    error: false,
-    query: ''
-}), _defineProperty(_ref, 'methods', {
-    search: function search() {
-        var _this = this;
-
-        // Clear the error message.
-        this.error = '';
-        // Empty the products array so we can fill it with the new products.
-        this.users = [];
-        // Set the loading property to true, this will display the "Searching..." button.
-        this.loading = true;
-
-        // Making a get request to our API and passing the query to it.
-        this.$http.get('/api/search?q=' + this.query).then(function (response) {
-            // If there was an error set the error message, if not fill the products array.
-            response.body.error ? _this.error = response.body.error : _this.users = response.body;
-            // The request is finished, change the loading to false again.
-            _this.loading = false;
-            // Clear the query.
-            _this.query = '';
-        });
-    }
-}), _ref));
+}, 'components', { Autocomplete: __WEBPACK_IMPORTED_MODULE_2__components_Autocomplete_vue___default.a }));
 
 var appli = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 
@@ -8764,7 +8736,7 @@ var appli = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 
     methods: {
         search: function search() {
-            var _this2 = this;
+            var _this = this;
 
             // Clear the error message.
             this.error = '';
@@ -8776,25 +8748,25 @@ var appli = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
             // Making a get request to our API and passing the query to it.
             this.$http.get('/api/search?q=' + this.query).then(function (response) {
                 // If there was an error set the error message, if not fill the products array.
-                response.body.error ? _this2.error = response.body.error : _this2.users = response.body;
+                response.body.error ? _this.error = response.body.error : _this.users = response.body;
                 // The request is finished, change the loading to false again.
-                _this2.loading = false;
+                _this.loading = false;
                 // Clear the query.
-                _this2.query = '';
+                _this.query = '';
             });
         },
 
         createItem: function createItem() {
-            var _this3 = this;
+            var _this2 = this;
 
             var input = this.user;
+
             this.$http.post('/users', input).then(function (response) {
-                _this3.user = { 'name': '', 'firstName': '' };
+                _this2.user = { 'name': '', 'firstName': '' };
                 $("#create-item").modal('hide');
                 toastr.success('Item Created Successfully.', 'Success Alert', { timeOut: 5000 });
             }, function (response) {
-                _this3.formErrors = response.data;
-                console.log(user.name);
+                _this2.formErrors = response.data;
             });
         }
 

@@ -182,11 +182,11 @@
                 {{ csrf_field() }}
 
                 <notification></notification>
+                
+                  <div v-for="user in users">
+                    @{{ users.name }}
 
-                <div v-for="user in users">
-                    @{{ user.name }}
-
-                    @{{ user.firstName }}
+                    @{{ users.firstName }}
                 </div>
 
 
@@ -216,6 +216,7 @@
 
                         <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem">
                             {{ csrf_field() }}
+                             
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="well well-sm">
@@ -243,10 +244,12 @@
                                             <div class="col-xs-12 ">
                                                 <div class="well well-sm">
                                                     <div class="row">
-
                                                         <div class="col-xs-12">
                                                             <h4>
                                                                 @{{ user.name }} @{{ user.firstName }}</h4>
+                                                            <input type="text" name="name" class="form-control" v-model="user.name" />
+                                                        <input type="text" name="firstName" class="form-control" v-model="user.firstName" />
+
                                                             <small><cite title="San Francisco, USA"> @{{ user.adress }} <i class="glyphicon glyphicon-map-marker">
                                                                     </i></cite></small>
                                                             <p>
@@ -271,16 +274,16 @@
                                             <div class="thumbnail">
                                                 <div class="caption">
                                                     <div class="form-group">
-                                                        <h4 class="group inner list-group-item-heading">@{{ user.name }}</h4>
-                                                        <input type="hidden" name="country" v-model="user.name">
+                                                        <input type="text" name="name" class="form-control" v-model="user.name" />
+
                                                     </div>
                                                     <div class="form-group">
-                                                        <p class="group inner list-group-item-text">@{{ user.firstName }}</p>
-                                                        <input type="hidden" name="country" v-model="user.firstName">
+                                                        <input type="text" name="firstName" class="form-control" v-model="user.firstName" />
+
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-success">ajouter</button>
+                                                       <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">ajouter</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -328,7 +331,7 @@
 
 @push('scripts')
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
 <script src="{{asset('js/vendor.js')}}"></script>
