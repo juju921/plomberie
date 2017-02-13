@@ -183,11 +183,7 @@
 
                 <notification></notification>
                 
-                  <div v-for="user in users">
-                    @{{ users.name }}
-
-                    @{{ users.firstName }}
-                </div>
+                  
 
 
             </form>
@@ -201,125 +197,7 @@
         ajouter un client
     </button>
 
-    <div id="manage-itelm">
-        <!-- Create Item Modal -->
-        <div class="modal fade" id="create-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">×</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Create Item</h4>
-                    </div>
-                    <div class="modal-body" style="overflow:hidden;">
-
-
-                        <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem">
-                            {{ csrf_field() }}
-                             
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="well well-sm">
-                                        <div class="form-group">
-                                            <div class="input-group input-group-md">
-                                                <div class="icon-addon addon-md">
-                                                    <input type="text" placeholder="What are you looking for?"
-                                                           class="form-control" v-model="query">
-
-                                                </div>
-                                                <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" v-on:click="search()"
-                                    v-if="!loading">Search!</button>
-                            <button class="btn btn-default" type="button" disabled="disabled" v-if="loading">Searching...</button>
-                        </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="alert alert-danger" role="alert" v-if="error">
-                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                        @{{ error }}
-                                    </div>
-                                    <div id="products" class="row list-group" v-for="user in users">
-                                        <div class="row">
-                                            <div class="col-xs-12 ">
-                                                <div class="well well-sm">
-                                                    <div class="row">
-                                                        <div class="col-xs-12">
-                                                            <h4>
-                                                                @{{ user.name }} @{{ user.firstName }}</h4>
-                                                            <input type="text" name="name" class="form-control" v-model="user.name" />
-                                                        <input type="text" name="firstName" class="form-control" v-model="user.firstName" />
-
-                                                            <small><cite title="San Francisco, USA"> @{{ user.adress }} <i class="glyphicon glyphicon-map-marker">
-                                                                    </i></cite></small>
-                                                            <p>
-                                                                <i class="glyphicon glyphicon-envelope"></i> @{{ user.email }}
-                                                                <br />
-
-                                                            <!-- Split button -->
-                                                            <div class="btn-group">
-                                                                <button type="button" class="btn btn-primary">
-                                                                    Social</button>
-                                                                <div class="form-group">
-                                                                    <button type="submit" class="btn btn-success">ajouter</button>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item col-md-12" v-for="user in users">
-                                            <div class="thumbnail">
-                                                <div class="caption">
-                                                    <div class="form-group">
-                                                        <input type="text" name="name" class="form-control" v-model="user.name" />
-
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" name="firstName" class="form-control" v-model="user.firstName" />
-
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                       <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">ajouter</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-
-
-                    {{--  <div class="form-group">
-                          <label for="title">Title:</label>
-                          <input type="text" name="title" class="form-control"  />
-                      </div>
-
-                      <div class="form-group">
-                          <label for="title">Description:</label>
-                          <textarea name="description" class="form-control" ></textarea>
-                      </div>
-
-                      <div class="form-group">
-                          <button type="submit" class="btn btn-success">Submit</button>
-                      </div>--}}
-
-                    </form>
-
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <!-- Edit Item Modal -->
-
-
-
+    
 
 
 

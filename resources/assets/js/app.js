@@ -28,7 +28,7 @@ const appli = new Vue({
         loading: false,
         error: false,
         query: '',
-        user : {'name':'','firstName':''}
+
     },
 
 
@@ -53,20 +53,7 @@ const appli = new Vue({
         });
     },
     
-    createItem: function(){
-		  var input = this.user;
-       
-            
-		  this.$http.post('/users',input).then((response) => {
-			this.user = {'name':'','firstName':''};
-			$("#create-item").modal('hide');
-			toastr.success('Item Created Successfully.', 'Success Alert', {timeOut: 5000});
-		  }, (response) => {
-			this.formErrors = response.data;
-            
-	    });
-	},
-
+   
 
 
     }

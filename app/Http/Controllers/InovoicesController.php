@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+
 use App\Inovoices;
 use App\User;
+
 
 class InovoicesController extends Controller
 {
 
-    public function manageinovoices(){
-
-           return view('manage-inovoices');
-
-    }
-
+   
     /**
      * Display a listing of the resource.
      *
@@ -30,10 +29,12 @@ class InovoicesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        
         return view('inovoices.create');
+        
     }
 
     /**
@@ -44,6 +45,18 @@ class InovoicesController extends Controller
      */
     public function store(Request $request)
     {
+        //$value = $request->session()->get('userIdkey');
+       $data = $request->session()->get('userId');
+       //   dd($data);
+        $users = DB::table('users')->where('id', '=' , $data)->get();
+
+        
+
+        return view('inovoices.create',['users' => $users]);
+        
+
+
+
        $this->validate($request, [
             'invoice_no' => 'required|alpha_dash|unique:invoices',
             'invoice_date' => 'required|date_format:Y-m-d',
@@ -56,8 +69,10 @@ class InovoicesController extends Controller
         ]);
 
         $create = Inovoices::create($request->all());
+       
+        return view('inovoices.create',['users' => $users]);
 
-        return response()->json($create);
+       // return response()->json($create);
 
     }
 

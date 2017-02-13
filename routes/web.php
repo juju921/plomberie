@@ -20,16 +20,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 //Inovoices
-Route::get('manage-inovoices', 'InovoicesController@manageinovoices');
-Route::resource('inovoices', 'InovoicesController');
-
-Route::resource('/inovoices/create','InovoicesController@create');
+Route::post('/users','UsersController@store');
+Route::get('/inovoices/create','InovoicesController@store');
 
 
 //User
 Route::get('/users/create','UsersController@create');
 Route::post('/users','UsersController@store');
-Route::resource('users','UsersController');
 
 
 //Api

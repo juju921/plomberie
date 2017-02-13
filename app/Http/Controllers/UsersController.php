@@ -54,7 +54,6 @@ class UsersController extends Controller
             'mobileNumber' => 'required|numeric',
             'email' => 'required|email',
         ]);
-
         //2. Store it in database
         $user = new User();
         $user->nBatiment = $request->nBatiment;
@@ -72,8 +71,8 @@ class UsersController extends Controller
         $user->save();
         Session::flash('error', 'l utilisateur a été ajouté');
 
-
-
+        $request->session()->put('userId', $user->id );
+        
        //return redirect('/');
 
        // 3. Redirect to either show() or index()
