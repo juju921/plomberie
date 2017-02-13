@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-
-class CreateInovoicesTable extends Migration
+class Inovoices extends Migration
 {
     /**
      * Run the migrations.
@@ -27,7 +26,6 @@ class CreateInovoicesTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();
         });
-
     }
 
     /**
@@ -37,6 +35,6 @@ class CreateInovoicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invoices');
+        //
     }
 }
