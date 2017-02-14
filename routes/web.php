@@ -27,7 +27,7 @@ Route::get('/inovoices/create','InovoicesController@store');
 //User
 Route::get('/users/create','UsersController@create');
 Route::post('/users','UsersController@store');
-
+Route::get('/users/index', 'UsersController@index');
 
 //Api
 Route::get('/','Api\SearchController@search');
