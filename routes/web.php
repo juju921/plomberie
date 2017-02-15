@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index');
 
 //Inovoices
 Route::post('/users','UsersController@store');
-Route::get('/inovoices/create','InovoicesController@store');
+Route::get('/inovoices/create/{id}','InovoicesController@store');
 
 
 //User

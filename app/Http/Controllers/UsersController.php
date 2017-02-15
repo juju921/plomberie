@@ -42,8 +42,10 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
+        $user = User::find($id);
+        dd($user);
         //1. Validate the data
 
 
