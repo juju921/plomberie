@@ -45,7 +45,7 @@ class UsersController extends Controller
     public function store(Request $request, $id)
     {
         $user = User::find($id);
-        dd($user);
+       echo $user;
         //1. Validate the data
 
 
