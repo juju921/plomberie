@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-<<<<<<< HEAD
 use Auth;
-=======
 use  Socialite;
->>>>>>> origin/master
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
