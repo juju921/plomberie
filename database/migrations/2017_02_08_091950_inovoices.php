@@ -18,6 +18,7 @@ class Inovoices extends Migration
             $table->string('invoice_no');
             $table->date('invoice_date');
             $table->date('due_date');
+            $table->char('reference');
             $table->string('title');
             $table->string('client_address');
             $table->decimal('sub_total');

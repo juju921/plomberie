@@ -8,10 +8,12 @@
         "php": ">=5.6.4",
         "algolia/algoliasearch-client-php": "^1.14",
         "barryvdh/laravel-debugbar": "^2.3",
+        "barryvdh/laravel-dompdf": "^0.7.1",
         "caouecs/laravel-lang": "~3.0",
         "fzaninotto/faker": "^1.6",
         "laravel/framework": "5.4.*",
         "laravel/scout": "^3.0",
+        "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.3.0"
     },
