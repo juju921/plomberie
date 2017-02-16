@@ -31,3 +31,6 @@ Route::get('/users/index', 'UsersController@index');
 
 //Api
 Route::get('/','Api\SearchController@search');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

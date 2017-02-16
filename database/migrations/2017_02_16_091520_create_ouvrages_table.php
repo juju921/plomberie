@@ -15,6 +15,11 @@ class CreateOuvragesTable extends Migration
     {
         Schema::create('ouvrages', function (Blueprint $table) {
             $table->increments('id');
+            $table->char('refereces');
+            $table->char('libele');
+            $table->decimal('coef');
+            $table->decimal('prixht');
+            $table->int('tva');
             $table->timestamps();
         });
     }
