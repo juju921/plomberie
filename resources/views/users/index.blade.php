@@ -1,11 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<<<<<<< HEAD
-   
-=======
 
->>>>>>> origin/master
 
 
         <div class="col-md-12">
