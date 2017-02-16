@@ -25,4 +25,14 @@ class Inovoices extends Model
         return $this->hasOne('App\User');
 
     }
+
+    public function  Ouvrage(){
+
+        return $this->hasOne('App\Ouvrage');
+
+    }
+
+
+
+
 }

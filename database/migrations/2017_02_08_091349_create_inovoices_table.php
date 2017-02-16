@@ -25,6 +25,7 @@ class CreateInovoicesTable extends Migration
             $table->decimal('discount');
             $table->decimal('grand_total');
             $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('ouvrage_id')->unsigned();            
             $table->timestamps();
         });
 
