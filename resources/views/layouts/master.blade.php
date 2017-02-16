@@ -116,7 +116,7 @@
 @include('layouts.header')
 
 
-<div  id="app">
+<div class="app-container" id="app">
     @yield('content')
 </div>
 

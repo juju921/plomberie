@@ -25,12 +25,4 @@ class Inovoices extends Model
         return $this->hasOne('App\User');
 
     }
-
-    public function  destinataire(){
-
-        return $this->hasOne('App\Destinataire');
-
-    }
-
-
 }
