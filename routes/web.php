@@ -17,6 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+Route::get('auth/{provider}', 'Auth\RegisterController@redirectToProvider');
+
+
+
 Route::get('/home', 'HomeController@index');
 
 //Inovoices
