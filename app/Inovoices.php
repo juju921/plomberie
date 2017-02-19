@@ -20,9 +20,9 @@ class Inovoices extends Model
     ];
 
 
-    public function  user(){
+    public function  client(){
 
-        return $this->hasOne('App\User');
+        return $this->hasOne('App\Client');
 
     }
 

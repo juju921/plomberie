@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 use App\Inovoices;
 use App\User;
+use PDF;
+
 
 
 class InovoicesController extends Controller
 {
 
-   
+
     /**
      * Display a listing of the resource.
      *
@@ -32,9 +34,9 @@ class InovoicesController extends Controller
     public function create(Request $request)
     {
         //
-        
+
         return view('inovoices.create');
-        
+
     }
 
     /**
@@ -46,14 +48,14 @@ class InovoicesController extends Controller
     public function store(Request $request)
     {
         //$value = $request->session()->get('userIdkey');
-       $data = $request->session()->get('userId');
+       $data = $request->session()->get('clientId');
        //   dd($data);
-        $users = DB::table('users')->where('id', '=' , $data)->get();
+        $users = DB::table('Clients')->where('id', '=' , $data)->get();
 
-        
 
-        return view('inovoices.create',['users' => $users]);
-        
+
+        return view('inovoices.create',['clients' => $users]);
+
 
 
 
@@ -69,8 +71,8 @@ class InovoicesController extends Controller
         ]);
 
         $create = Inovoices::create($request->all());
-       
-        return view('inovoices.create',['users' => $users]);
+
+        return view('inovoices.create',['clients' => $clients]);
 
        // return response()->json($create);
 

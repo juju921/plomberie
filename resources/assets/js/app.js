@@ -1,7 +1,8 @@
 import Vue from 'vue';
 Vue.use(require('vue-resource'));
-import Notification from './components/Notification.vue';
-import Autocomplete from './components/Autocomplete.vue';
+//import Notification from './components/Notification.vue';
+//import Autocomplete from './components/Autocomplete.vue';
+import SelectMultiple from './components/SelectMultiple.vue'
 Vue.http.headers.common['X-CSRF-TOKEN'] = $("#token").attr("value");
 
 
@@ -10,8 +11,10 @@ const app = new Vue({
     
     el: '#manage-vue',
 
-    components:{ Notification },
-    components: { Autocomplete },
+
+
+ 
+
 
 });
 
@@ -19,11 +22,17 @@ const app = new Vue({
 const appli = new Vue({
 
 
-   el: '#create-item',
+   el: '#app',
+
+    components: { SelectMultiple },
+
 
 
 
     data: {
+        disableWhenSelect:false,
+        locataireShow:false,
+        statutHabitation:"",
         users: [],
         loading: false,
         error: false,
@@ -52,6 +61,21 @@ const appli = new Vue({
             this.query = '';
         });
     },
+
+    GetNameProprietaire: function(){
+
+        if(this.statutHabitation === "Locataire"){
+
+            this.locataireShow = true; 
+           
+
+        }else{
+
+         this.locataireShow = false; 
+
+        }
+
+    }
     
    
 

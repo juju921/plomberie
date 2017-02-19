@@ -185,6 +185,26 @@
 
 
                 <div class="card-body">
+                    <div class="row">
+                    <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Adresse d'intervention</label>
+                                <input type="text" class="form-control" v-model="form.invoice_no">
+                                <p v-if="errors.invoice_no" class="error"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Commande : </label>
+                                <input type="text" class="form-control" v-model="form.client">
+                                <p v-if="errors.client" class="error"></p>
+                            </div>
+                               <div class="form-group">
+                                <label>Référence à rappeler :</label>
+                                <input type="text" class="form-control" v-model="form.client">
+                                <p v-if="errors.client" class="error"></p>
+                            </div>
+
+                    </div>
+
 
                     <div class="row">
                         <div class="col-sm-4">

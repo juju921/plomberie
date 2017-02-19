@@ -10,7 +10,7 @@
                 Ajouter un client
             </div>
             <div class="card-body">
-                <form method="POST" action="/users/userschoice">
+                <form method="POST" action="/clients/userschoice">
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-6">
@@ -27,13 +27,13 @@
                             <label for="name">nom</label>
                             <input type="text" class="form-control" placeholder="nom" id="name" name="name">
 
-                             
+
                             <label for="adress">adress</label>
                             <input type="text" class="form-control" placeholder="adresse" id="adress" name="adress">
 
                             <label for="postalCode">Code postal</label>
                             <input type="text" class="form-control" placeholder="adresse" id="postalCode" name="postalCode">
-   
+
 
 
                             <label for="inovoiceAdress">Adresse de facturation</label>

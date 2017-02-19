@@ -8434,3 +8434,14 @@ button.close {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
+.fade-enter-active,
+.fade-leave-active {
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}

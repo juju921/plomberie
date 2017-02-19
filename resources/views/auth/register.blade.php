@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.resgister')
 
 @section('content')
 <div class="container">
@@ -8,7 +8,8 @@
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
-                        {{ csrf_field() }}
+                            {{ csrf_field() }}
+
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Name</label>
@@ -59,6 +60,9 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+        <a href="{{ url('/auth/facebook') }}" class="btn btn-default btn-social __facebook">Facebook</a>
+    </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

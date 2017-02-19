@@ -1,4 +1,4 @@
-@include('layouts.header')
+@extends('layouts.master')
     <body>
 
     @yield('content')
